@@ -63,4 +63,7 @@ private:
 
 	bool ResetAll = false;
 	bool resetALittle = false;
+	bool rewinded = false;
+	int rewindCoubt = 0;
+	bool rewinding = false;
 };

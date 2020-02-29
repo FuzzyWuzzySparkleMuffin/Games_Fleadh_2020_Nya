@@ -1,7 +1,7 @@
 #include "Game.h"
 
 
-GameState Game::m_currentMode{ GameState::splash};
+GameState Game::m_currentMode{ GameState::gameplay};
 EntityManager manager;
 auto& newPlayer(manager.addEntity("player"));
 auto& flag(manager.addEntity("goal"));
@@ -170,8 +170,7 @@ void Game::handleEvents()
 		isRunning = false;
 		break;
 	case SDL_JOYAXISMOTION:
-		if (m_event.jaxis.which == 0)
-		{
+		
 			if (m_event.jaxis.axis == 0)
 			{
 				if (m_event.jaxis.value < -20000)
@@ -201,7 +200,7 @@ void Game::handleEvents()
 					stick.setY(0);
 				}
 			}
-		}
+		
 		break;
 	case SDL_JOYBUTTONDOWN:
 		if (SDL_JoystickGetButton(stick.getStick(), 4) != 0 && !botSwitch)

@@ -4,17 +4,26 @@ Windows IP Configuration
 
 Ethernet adapter Ethernet:
 
-   Connection-specific DNS Suffix  . : itcarlow.ie
-   IPv4 Address. . . . . . . . . . . : 149.153.106.152
-   Subnet Mask . . . . . . . . . . . : 255.255.255.0
-   Default Gateway . . . . . . . . . : 149.153.106.254
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : home
 
-Ethernet adapter Npcap Loopback Adapter:
+Wireless LAN adapter Local Area Connection* 9:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : 
+
+Wireless LAN adapter Local Area Connection* 11:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : 
+
+Wireless LAN adapter WiFi:
 
    Connection-specific DNS Suffix  . : 
-   Autoconfiguration IPv4 Address. . : 169.254.112.89
-   Subnet Mask . . . . . . . . . . . : 255.255.0.0
-   Default Gateway . . . . . . . . . : 
+   Link-local IPv6 Address . . . . . : fe80::f96c:dd35:231d:7339%18
+   IPv4 Address. . . . . . . . . . . : 192.168.43.89
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.43.1
 
 Ethernet adapter Bluetooth Network Connection:
 

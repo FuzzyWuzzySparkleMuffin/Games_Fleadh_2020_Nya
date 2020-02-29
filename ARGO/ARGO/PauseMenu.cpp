@@ -27,7 +27,7 @@ void PauseMenu::init()
 	selectBox[2] = Vector2(selectBox[0].X() +240,selectBox[0].Y());
 	selectBox[3] = Vector2(selectBox[0].X() + 360,selectBox[1].Y());
 	selectBox[4] = Vector2(selectBox[0].X() +480,selectBox[0].Y());
-	rewindBox = Vector2(selectBox[0].X(), selectBox[0].Y() + 75);
+	rewindBox = Vector2(selectBox[0].X()+240, selectBox[0].Y());
 	/*selectBox[5] = Vector2(1200, 1900);
 	selectBox[6] = Vector2(selectBox[0].X() + 240, 1900);
 	selectBox[7] = Vector2(selectBox[0].X() + 480, selectBox[0].Y());
@@ -56,122 +56,164 @@ void PauseMenu::input(SDL_Event& t_event, Joystick t_stick)
 {
 	if (timer == MAX_TIME)
 	{
+		resetALittle = false;
+		ResetAll = false;
+
+		if (dstrectSelect.x == int(rewindBox.X() - m_slectOffset.x) &&
+			dstrectSelect.y == int(rewindBox.Y() - m_slectOffset.y)
+			)
+		{
+			//||
+			if ((SDL_JoystickGetHat(t_stick.getStick(), 0) == SDL_HAT_LEFT) || (SDL_JoystickGetHat(t_stick.getStick(), 0) == SDL_HAT_RIGHT))
+			{
+				dstrectSelect = { int(selectBox[currentBox].X() - m_slectOffset.x), int(selectBox[currentBox].Y() - m_slectOffset.y), dstrectSelect.w, dstrectSelect.h };
+				//rewindCoubt = 0;
+			}
+
+			//rewindCoubt++;
+		}
 		if (SDL_JoystickGetButton(t_stick.getStick(), 0) != 0)
 		{
-			for (int box = 0; box < NUM_OF_BOXES; box++)
+
+			if (dstrectSelect.x == int(rewindBox.X() - m_slectOffset.x) &&
+				dstrectSelect.y == int(rewindBox.Y() - m_slectOffset.y)
+				)
 			{
-				if (box <= m_lockValue)
+				resetALittle = true;
+				forAllTexture = m_textureRewind;
+				
+			}
+			
+				for (int box = 0; box < NUM_OF_BOXES; box++)
 				{
-					
-					if (dstrectSelect.x + m_slectOffset.x == selectBox[box].X() && dstrectSelect.y + m_slectOffset.y == selectBox[box].Y())
+					if (box <= m_lockValue)
 					{
-						if (!boxSelected[box])
+
+						if (dstrectSelect.x + m_slectOffset.x == selectBox[box].X() && dstrectSelect.y + m_slectOffset.y == selectBox[box].Y())
 						{
-							boxSelected[box] = true;
-							m_swappedStates = true;
-							forAllTexture = m_textureObj;
-							for (int box2 = 0; box2 < NUM_OF_BOXES; box2++)
+							if (!boxSelected[box])
 							{
-								if (boxSelected[box] == boxSelected[box2] && box != box2)
+								boxSelected[box] = true;
+								m_swappedStates = true;
+								forAllTexture = m_textureObj;
+								for (int box2 = 0; box2 < NUM_OF_BOXES; box2++)
 								{
-									boxSelected[box2] = false;
+									if (boxSelected[box] == boxSelected[box2] && box != box2)
+									{
+										boxSelected[box2] = false;
+									}
 								}
 							}
-						}
-						else if (boxSelected[box])
-						{
-							boxSelected[box] = false;
-							forAllTexture = m_textureAdjecUnlock;
-						}
-						else
-						{
-							for (int box2 = 1; box2 < NUM_OF_BOXES; box2 += 2)
+							else if (boxSelected[box])
 							{
-								if (boxSelected[box2])
+								boxSelected[box] = false;
+								forAllTexture = m_textureAdjecUnlock;
+							}
+							else
+							{
+								for (int box2 = 1; box2 < NUM_OF_BOXES; box2 += 2)
 								{
-									float tempCut = srcrect[box2].y;
-									srcrect[box2].y = srcrect[box].y;
-									srcrect[box].y = tempCut;
-									forAllTexture = m_textureObj;
-									boxSelected[box2] = false;
-									m_rulesChanged = true;
+									if (boxSelected[box2])
+									{
+										float tempCut = srcrect[box2].y;
+										srcrect[box2].y = srcrect[box].y;
+										srcrect[box].y = tempCut;
+										forAllTexture = m_textureObj;
+										boxSelected[box2] = false;
+										m_rulesChanged = true;
+									}
 								}
 							}
+							if (box == m_lockValue)
+							{
+								forAllTexture = m_textureRewind;
+							}
+							timer = 0;
 						}
-						if (box == m_lockValue)
-						{
-							forAllTexture = m_textureRewind;
-						}
-						timer = 0;
 					}
 				}
 			}
-		}
-		resetALittle = false;
-		ResetAll = false;
-		
-		forAllTexture = m_textureNotRewind;
-		if (currentBox >= m_lockValue)
-		{
-			currentBox = 0;
-			for (int box = 0; box < NUM_OF_BOXES; box++)
-			{
-				boxSelected[box] = false;
-			}
-		}
-		if (SDL_JoystickGetHat(t_stick.getStick(), 0) == SDL_HAT_RIGHT)
-		{
-			currentBox += 2;
-			timer = 0;
+			
+			forAllTexture = m_textureNotRewind;
 			if (currentBox >= m_lockValue)
 			{
-				currentBox -= m_lockValue;
+				currentBox = 0;
+				for (int box = 0; box < NUM_OF_BOXES; box++)
+				{
+					boxSelected[box] = false;
+				}
 			}
-			/*if (boxSelected[currentBox])
+			if (SDL_JoystickGetHat(t_stick.getStick(), 0) == SDL_HAT_RIGHT)
 			{
 				currentBox += 2;
-			}*/
-			if (currentBox >= m_lockValue)
-			{
-				currentBox -= m_lockValue;
+				timer = 0;
+				if (currentBox >= m_lockValue)
+				{
+					dstrectSelect = { int(rewindBox.X() - m_slectOffset.x), int(rewindBox.Y() - m_slectOffset.y), 62, 85 };
+
+					currentBox -= m_lockValue;
+				}
+				/*if (boxSelected[currentBox])
+				{
+					currentBox += 2;
+				}*/
+				if (currentBox >= m_lockValue)
+				{
+					dstrectSelect = { int(rewindBox.X() - m_slectOffset.x), int(rewindBox.Y() - m_slectOffset.y), 62, 85 };
+
+					currentBox -= m_lockValue;
+				}
 			}
-		}
-		else if (SDL_JoystickGetHat(t_stick.getStick(), 0) == SDL_HAT_LEFT)
-		{
-			currentBox -= 2;
-			timer = 0;
-			if (currentBox < 0)
-			{
-				currentBox += m_lockValue;
-			}
-			/*if (boxSelected[currentBox])
+			else if (SDL_JoystickGetHat(t_stick.getStick(), 0) == SDL_HAT_LEFT)
 			{
 				currentBox -= 2;
-			}*/
-			if (currentBox < 0)
+				timer = 0;
+				if (currentBox < 0)
+				{
+					dstrectSelect = { int(rewindBox.X() - m_slectOffset.x), int(rewindBox.Y() - m_slectOffset.y), 62, 85 };
+
+					currentBox += m_lockValue;
+				}
+				/*if (boxSelected[currentBox])
+				{
+					currentBox -= 2;
+				}*/
+				if (currentBox < 0)
+				{
+					dstrectSelect = { int(rewindBox.X() - m_slectOffset.x), int(rewindBox.Y() - m_slectOffset.y), 62, 85 };
+
+					currentBox += m_lockValue;
+				}
+			}
+			else if (SDL_JoystickGetHat(t_stick.getStick(), 0) == SDL_HAT_UP)
 			{
-				currentBox += m_lockValue;
+				ResetAll = true;
+				forAllTexture = m_textureRewind;
+			}
+			else if (SDL_JoystickGetHat(t_stick.getStick(), 0) == SDL_HAT_DOWN)
+			{
+				resetALittle = true;
+				forAllTexture = m_textureRewind;
+			}
+
+			if (dstrectSelect.x == int(rewindBox.X() - m_slectOffset.x) &&
+				dstrectSelect.y == int(rewindBox.Y() - m_slectOffset.y))
+			{
+				dstrectSelect = { int(rewindBox.X() - m_slectOffset.x), int(rewindBox.Y() - m_slectOffset.y), 62, 85 };
+			}
+			else {
+				dstrectSelect = { int(selectBox[currentBox].X() - m_slectOffset.x), int(selectBox[currentBox].Y() - m_slectOffset.y), dstrectSelect.w, dstrectSelect.h };
+			}
+
+			/*if (!anyActive())
+			{
+				dstrectSelect2 = { int(selectBox[currentBox].X() - (m_slectOffset.x / 2)), int(selectBox[currentBox].Y() - (m_slectOffset.x / 2)), dstrectSelect2.w, dstrectSelect2.h };
+			}*/
+
 			}
 		}
-		else if (SDL_JoystickGetHat(t_stick.getStick(), 0) == SDL_HAT_UP )
-		{
-			ResetAll = true;
-			forAllTexture = m_textureRewind;
-		}
-		else if(SDL_JoystickGetHat(t_stick.getStick(), 0) == SDL_HAT_DOWN)
-		{
-			resetALittle = true;
-			forAllTexture = m_textureRewind;
-		}
-		
-		dstrectSelect = { int(selectBox[currentBox].X() - m_slectOffset.x), int(selectBox[currentBox].Y() - m_slectOffset.y), dstrectSelect.w, dstrectSelect.h };
-		/*if (!anyActive())
-		{
-			dstrectSelect2 = { int(selectBox[currentBox].X() - (m_slectOffset.x / 2)), int(selectBox[currentBox].Y() - (m_slectOffset.x / 2)), dstrectSelect2.w, dstrectSelect2.h };
-		}*/
-		
-	}
-}
+	
+
 
 void PauseMenu::update()
 {
