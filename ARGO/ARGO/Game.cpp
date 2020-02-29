@@ -164,6 +164,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 void Game::handleEvents()
 {
 	SDL_PollEvent(&m_event);
+	std::cout << m_event.jaxis.value<<std::endl;
 	switch (m_event.type)
 	{
 	case SDL_QUIT:

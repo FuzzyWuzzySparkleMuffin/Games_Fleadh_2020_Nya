@@ -93,13 +93,13 @@ void EntityManager::handleEvents( Joystick& stick, std::vector<Vector2> t_mapsiz
 							tempF.getComponent<SpriteComponent>().updateState(PlayerStates::IdlePlayer);
 							
 							
-							if (tempE.getComponentString() == "stop")
+							/*if (tempE.getComponentString() == "stop")
 							{
 								t_pause.botSwitch();
 								tempF.getComponent<PositionComponent>().setToPreviousPos();
 								tempF.getComponent<PositionComponent>().setToPreviousPos();
 								tempF.getComponent<PositionComponent>().setToPreviousPos();
-							}
+							}*/
 								
 							
 						}

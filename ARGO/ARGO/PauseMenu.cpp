@@ -27,7 +27,7 @@ void PauseMenu::init()
 	selectBox[2] = Vector2(selectBox[0].X() +240,selectBox[0].Y());
 	selectBox[3] = Vector2(selectBox[0].X() + 360,selectBox[1].Y());
 	selectBox[4] = Vector2(selectBox[0].X() +480,selectBox[0].Y());
-	rewindBox = Vector2(selectBox[0].X()+240, selectBox[0].Y());
+	rewindBox = Vector2(selectBox[0].X()+241, selectBox[0].Y());
 	/*selectBox[5] = Vector2(1200, 1900);
 	selectBox[6] = Vector2(selectBox[0].X() + 240, 1900);
 	selectBox[7] = Vector2(selectBox[0].X() + 480, selectBox[0].Y());
@@ -185,7 +185,7 @@ void PauseMenu::input(SDL_Event& t_event, Joystick t_stick)
 					currentBox += m_lockValue;
 				}
 			}
-			else if (SDL_JoystickGetHat(t_stick.getStick(), 0) == SDL_HAT_UP)
+		/*	else if (SDL_JoystickGetHat(t_stick.getStick(), 0) == SDL_HAT_UP)
 			{
 				ResetAll = true;
 				forAllTexture = m_textureRewind;
@@ -194,7 +194,7 @@ void PauseMenu::input(SDL_Event& t_event, Joystick t_stick)
 			{
 				resetALittle = true;
 				forAllTexture = m_textureRewind;
-			}
+			}*/
 
 			if (dstrectSelect.x == int(rewindBox.X() - m_slectOffset.x) &&
 				dstrectSelect.y == int(rewindBox.Y() - m_slectOffset.y))
