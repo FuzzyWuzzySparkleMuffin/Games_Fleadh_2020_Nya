@@ -1,0 +1,4 @@
+﻿  PauseMenu.cpp
+C:\Users\Murt\Documents\GitHub\ARGO1920-TeamD\ARGO\ARGO\PauseMenu.cpp(118,25): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Murt\Documents\GitHub\ARGO1920-TeamD\ARGO\ARGO\PauseMenu.cpp(120,28): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  ARGO.vcxproj -> C:\Users\Murt\Documents\GitHub\ARGO1920-TeamD\ARGO\Debug\ARGO.exe
